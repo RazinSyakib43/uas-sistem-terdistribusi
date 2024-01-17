@@ -24,7 +24,7 @@ db.connect((err) => {
 app.use(express.json());
 
 app.post("/transaksi", async (req, res) => {
-  const { nama, produk, harga } = req.body;
+  const { nama, produk, jumlah_barang, harga } = req.body;
 
   let diskon = 0;
 
@@ -41,14 +41,17 @@ app.post("/transaksi", async (req, res) => {
   }
 
   const idPenjualan = uuidv4();
-  const hargaDiskon = harga * diskon;
-  const totalBayar = harga - hargaDiskon;
+
+  const totalharga = harga * jumlah_barang;
+
+  const hargaDiskon = totalharga * diskon;
+  const totalBayar = totalharga - hargaDiskon;
 
   const sql =
-    "INSERT INTO penjualan (id, produk, harga, diskon, total_bayar) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO penjualan (id, produk, harga, jumlah_beli, total_harga, diskon, total_bayar) VALUES (?, ?, ?, ?, ?)";
   db.query(
     sql,
-    [idPenjualan, produk, harga, diskon, totalBayar],
+    [idPenjualan, produk, harga, jumlah_barang, diskon, totalharga, totalBayar],
     (err, result) => {
       if (err) {
         return res.status(500).send("Gagal membuat transaksi baru");
