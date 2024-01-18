@@ -108,17 +108,15 @@ async function fetchTransaksiData() {
     data.data.forEach((transaksi) => {
       const row = tableBody.insertRow();
       row.insertCell(0).textContent = transaksi.id;
-      row.insertCell(1).textContent = transaksi.id_barang;
-      row.insertCell(2).textContent = transaksi.id_karyawan;
-      row.insertCell(3).textContent = transaksi.nama_karyawan;
-      row.insertCell(4).textContent = transaksi.nama_pelanggan;
-      row.insertCell(5).textContent = transaksi.nama_barang;
-      row.insertCell(6).textContent = transaksi.jumlah_barang;
-      row.insertCell(7).textContent = transaksi.total_harga;
-      row.insertCell(8).textContent = transaksi.diskon;
-      row.insertCell(9).textContent = transaksi.total_bayar;
-      row.insertCell(10).textContent = transaksi.createdAt;
-      row.insertCell(11).textContent = transaksi.updatedAt;
+      row.insertCell(1).textContent = transaksi.nama_karyawan;
+      row.insertCell(2).textContent = transaksi.nama_pelanggan;
+      row.insertCell(3).textContent = transaksi.nama_barang;
+      row.insertCell(4).textContent = transaksi.jumlah_barang;
+      row.insertCell(5).textContent = transaksi.total_harga;
+      row.insertCell(6).textContent = transaksi.diskon;
+      row.insertCell(7).textContent = transaksi.total_bayar;
+      row.insertCell(8).textContent = transaksi.createdAt;
+      row.insertCell(9).textContent = transaksi.updatedAt;
     });
   } catch (error) {
     console.error("Error fetching Transaksi data:", error);
