@@ -101,18 +101,17 @@ const createTransaksi = async (req, res) => {
       diskon = 0;
     }
 
-    const barangHarga = await Barang.findOne({
+    const barang = await Barang.findOne({
       where: {
         id_barang: id_barang,
-      },
-      attributes: ["harga_barang"],
+      }
     });
 
-    console.log("barangHarga", barangHarga);
+    hargaBarang = barang.dataValues.harga_barang;
 
-    const total_harga = barangHarga * jumlah_barang;
+    const total_harga = hargaBarang * jumlah_barang;
     const hargaDiskon = total_harga * diskon;
-    const totalBayar = total_harga - hargaDiskon;
+    const total_bayar = total_harga - hargaDiskon;
 
     const transaksi = await Transaksi.create({
       id_barang,
@@ -120,9 +119,9 @@ const createTransaksi = async (req, res) => {
       jumlah_barang,
       nama_pelanggan: nama_pelanggan,
       nama_karyawan: namaKaryawan,
-      total_harga: total_harga,
+      total_harga,
       diskon: diskon,
-      total_bayar: totalBayar,
+      total_bayar,
     });
 
     res.status(201).json({
