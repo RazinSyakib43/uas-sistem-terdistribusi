@@ -79,28 +79,30 @@ const createTransaksi = async (req, res) => {
   const { id_barang, id_karyawan, nama_pelanggan, jumlah_barang } = req.body;
 
   let diskon = 0;
+  let namaKaryawan = null;
+
+  if (id_karyawan) {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/perusahaan-a/karyawan/${id_karyawan}`
+      );
+
+      const karyawanData = response.data;
+
+      console.log("karyawanData", karyawanData);
+
+      namaKaryawan = karyawanData.data.nama_karyawan;
+
+      console.log("namaKaryawan", namaKaryawan);
+
+      if (karyawanData) {
+        diskon = 0.2;
+      }
+    } catch (error) {
+    }
+  }
 
   try {
-    const response = await axios.get(
-      `http://localhost:5000/perusahaan-a/karyawan/${id_karyawan}`
-    );
-
-    const karyawanData = response.data;
-
-    console.log("karyawanData", karyawanData);
-
-    const namaKaryawan = karyawanData.data.nama_karyawan;
-
-    console.log("namaKaryawan", namaKaryawan);
-
-    if (karyawanData) {
-      diskon = 0.2;
-    }
-
-    if (!namaKaryawan){
-      diskon = 0;
-    }
-
     const barang = await Barang.findOne({
       where: {
         id_barang: id_barang,

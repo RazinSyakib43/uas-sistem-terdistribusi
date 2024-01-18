@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 const router = require("./src/routes/index");
@@ -10,6 +11,7 @@ const PERUSAHAANA_PORT = process.env.PERUSAHAANA_API_PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(router);
 
 app.get("/", (req, res) => {
