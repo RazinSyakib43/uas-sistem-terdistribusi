@@ -46,6 +46,10 @@ const Transaksi = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: true,
     },
+    nama_barang: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
     jumlah_barang: {
       type: DataTypes.INTEGER,
       allowNull: false,

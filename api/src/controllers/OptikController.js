@@ -109,6 +109,7 @@ const createTransaksi = async (req, res) => {
       }
     });
 
+    namaBarang = barang.dataValues.nama_barang;
     hargaBarang = barang.dataValues.harga_barang;
 
     const total_harga = hargaBarang * jumlah_barang;
@@ -118,9 +119,10 @@ const createTransaksi = async (req, res) => {
     const transaksi = await Transaksi.create({
       id_barang,
       id_karyawan,
-      jumlah_barang,
       nama_pelanggan: nama_pelanggan,
       nama_karyawan: namaKaryawan,
+      nama_barang: namaBarang,
+      jumlah_barang,
       total_harga,
       diskon: diskon,
       total_bayar,
